@@ -1,0 +1,73 @@
+.user-container {
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.torneos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.torneo-card {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: 250px;
+  text-align: left;
+}
+
+.torneo-card h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.torneo-card p {
+  margin: 5px 0;
+}
+
+.torneo-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.torneo-actions button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.torneo-actions button:hover {
+  background-color: #218838;
+}
+
+.no-torneos {
+  font-size: 2em;
+  color: rgba(0, 0, 0, 0.2);
+  margin-top: 50px;
+}

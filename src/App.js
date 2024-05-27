@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PaginaPrincipal from './Recursos/pagina_principal/index';
+import PaginaUsuarios from './Recursos/pagina_usuarios/index';
+import PaginaAdministrador from './Recursos/pagina_administrador/index';
+import InicioUser from './Recursos/Inicio_user/index';
+import InicioAdmin from './Recursos/inicio_admin/index';
+import PaginaRegistro from './Recursos/pagina_registro/index';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<PaginaRegistro />} />
+        <Route path="/principal" element={<PaginaPrincipal />} />
+        <Route path="/usuarios" element={<PaginaUsuarios />} />
+        <Route path="/admin" element={<PaginaAdministrador />} />
+        <Route path="/inicio_usuario" element={<InicioUser />} />
+        <Route path="/inicio_admin" element={<InicioAdmin />} />
+      </Routes>
+    </Router>
   );
 }
 

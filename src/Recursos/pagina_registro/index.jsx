@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+
+
 import './style.css';
 
 function PaginaRegistro() {
@@ -14,6 +17,7 @@ function PaginaRegistro() {
   });
 
   const [errorContrasena, setErrorContrasena] = useState('');
+  const [errorRegistro, setErrorRegistro] = useState('');
 
   const handleChangeRegistro = (e) => {
     const { name, value } = e.target;
@@ -26,6 +30,9 @@ function PaginaRegistro() {
       setErrorContrasena('Las contraseñas no coinciden');
     } else {
       setErrorContrasena('');
+
+
+      
       // Aquí iría la función para registrar el usuario en Firebase
       // registerUser({ ...registro, tipoUsuario });
       alert('Registro exitoso');

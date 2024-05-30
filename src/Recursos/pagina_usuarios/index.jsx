@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../Componentes/firebase';
-import { collection, getDocs, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import imgSrc from '../../Componentes/img.jpg'; // Asegúrate de que la ruta de la imagen sea correcta
 import './style.css';
 
 function PaginaUsuarios() {
   const [torneos, setTorneos] = useState([]);
-  const [usuario, setUsuario] = useState(''); // Para almacenar el nombre del usuario
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,11 +20,8 @@ function PaginaUsuarios() {
     fetchTorneos();
   }, []);
 
-  const inscribirseEnTorneo = async (torneo) => {
-    const torneoRef = doc(db, "torneos", torneo.id);
-    await updateDoc(torneoRef, {
-      inscritos: arrayUnion(usuario)
-    });
+  const inscribirseEnTorneo = (torneo) => {
+    // Aquí iría la función para inscribirse en el torneo usando Firebase
     alert(`Inscrito en el torneo: ${torneo.nombre}`);
   };
 
@@ -33,12 +29,6 @@ function PaginaUsuarios() {
     <div className="user-container">
       <button className="back-button" onClick={() => navigate('/')}>Retroceder</button>
       <h1>Ver Torneos</h1>
-      <input
-        type="text"
-        placeholder="Nombre del Usuario"
-        value={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
-      />
       <div className="torneos-container">
         {torneos.length === 0 ? (
           <p className="no-torneos">No hay torneos disponibles, vuelve más tarde</p>

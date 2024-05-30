@@ -9,7 +9,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url(./Componentes/Background.png) no-repeat;
+  background: url(./Componentes/Background.png);
   background-size: cover;
   background-position: center;
 

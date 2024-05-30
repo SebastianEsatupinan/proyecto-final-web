@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { auth } from '../../Componentes/firebase'; // Asegúrate de que la ruta es correcta
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
+import appFirebase from '../../Componentes/firebase';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import './style.css';
 
- 
+const auth = getAuth(appFirebase);
 
 function PaginaRegistro() {
   const [tipoUsuario, setTipoUsuario] = useState('Usuario');
@@ -19,30 +19,33 @@ function PaginaRegistro() {
 
   const [errorContrasena, setErrorContrasena] = useState('');
   const [errorRegistro, setErrorRegistro] = useState('');
+  const navigate = useNavigate();
 
   const handleChangeRegistro = (e) => {
     const { name, value } = e.target;
     setRegistro({ ...registro, [name]: value });
   };
 
-  const handleSubmitRegistro = (e) => {
+  const handleSubmitRegistro = async (e) => {
     e.preventDefault();
+
     if (registro.contrasena !== registro.confirmarContrasena) {
       setErrorContrasena('Las contraseñas no coinciden');
+      return;
     } else {
       setErrorContrasena('');
-      createUserWithEmailAndPassword(auth, registro.correo, registro.contrasena)
-        .then((userCredential) => {
-          // Registro exitoso
-          const user = userCredential.user;
-          console.log("Registro exitoso:", user);
-          alert('Registro exitoso');
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorRegistro(errorMessage);
-        });
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, registro.correo, registro.contrasena);
+      const user = userCredential.user;
+      console.log("Registro exitoso:", user);
+      alert('Registro exitoso');
+      navigate('/principal');
+    } catch (error) {
+      const errorMessage = error.message;
+      setErrorRegistro(errorMessage);
+      console.error("Error al registrar:", errorMessage);
     }
   };
 

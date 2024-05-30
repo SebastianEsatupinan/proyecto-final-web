@@ -1,3 +1,46 @@
+.inscritos-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #003670;
+}
+
+.inscritos-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  max-width: 90%;
+}
+
+.cerrar-panel {
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  float: right;
+}
+
+.inscritos-content h2 {
+  margin-top: 0;
+}
+
+.inscritos-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.inscritos-content li {
+  margin-bottom: 10px;
+}
+
 
 .admin-container {
   padding: 20px;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import appFirebase from '../../Componentes/firebase';
+import appFirebase, { db } from '../../Componentes/firebase';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, addDoc } from 'firebase/firestore';
 import './style.css';
 
 const auth = getAuth(appFirebase);
@@ -39,6 +40,17 @@ function PaginaRegistro() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, registro.correo, registro.contrasena);
       const user = userCredential.user;
+
+      // Guardar la información adicional del usuario en Firestore
+      await addDoc(collection(db, 'usuarios'), {
+        uid: user.uid,
+        correo: registro.correo,
+        cedula: registro.cedula,
+        nombre: registro.nombre,
+        apellidos: registro.apellidos,
+        tipoUsuario: tipoUsuario,
+      });
+
       console.log("Registro exitoso:", user);
       alert('Registro exitoso');
       navigate('/principal');

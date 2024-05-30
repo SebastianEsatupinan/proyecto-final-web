@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import appFirebase from '../../Componentes/firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import './style.css';
+
+const auth = getAuth(appFirebase);
 
 function InicioAdmin() {
   const navigate = useNavigate();
@@ -9,17 +13,24 @@ function InicioAdmin() {
     contrasena: '',
   });
 
+  const [errorLogin, setErrorLogin] = useState('');
+
   const handleChangeLogin = (e) => {
     const { name, value } = e.target;
     setLogin({ ...login, [name]: value });
   };
 
-  const handleSubmitLogin = (e) => {
+  const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    // Aquí iría la función para autenticar el administrador en Firebase
-    // authenticateAdmin(login);
-    alert('Inicio de sesión exitoso');
-    navigate('/admin'); // Redirigir a la página de administración después del inicio de sesión
+    try {
+      await signInWithEmailAndPassword(auth, login.cedula, login.contrasena);
+      alert('Inicio de sesión exitoso');
+      navigate('/admin'); // Redirigir a la página de administración después del inicio de sesión
+    } catch (error) {
+      const errorMessage = error.message;
+      setErrorLogin(errorMessage);
+      console.error("Error al iniciar sesión:", errorMessage);
+    }
   };
 
   return (
@@ -42,6 +53,7 @@ function InicioAdmin() {
           onChange={handleChangeLogin}
           required
         />
+        {errorLogin && <p className="error">{errorLogin}</p>}
         <button type="submit">Iniciar Sesión</button>
       </form>
     </div>
